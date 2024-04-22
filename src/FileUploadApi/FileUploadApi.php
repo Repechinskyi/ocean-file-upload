@@ -140,6 +140,12 @@ class FileUploadApi {
     ])->count();
     $file_mime = $this->file->getClientMimeType();
     $file_mime = explode('/', $file_mime);
+
+    // Check count '/' before path file
+    if (strpos($url, '//') === 0) {
+        $url = '/' . ltrim($url, '/');
+    }
+
     $attach = FileUpload::create([
       'name' => $name,
       'weight' => $files_count,
